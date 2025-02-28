@@ -44,7 +44,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', 'DockerHubCred') {
+                    docker.withRegistry('', 'dockerhub_cred') {
                         sh 'docker tag scicalc r3dacted42/scicalc:latest'
                         sh 'docker push r3dacted42/scicalc'
                     }
