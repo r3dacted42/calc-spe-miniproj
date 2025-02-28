@@ -41,15 +41,26 @@ pipeline {
             }
         }
 
-        // stage('Push Docker Images') {
-        //     steps {
-        //         script{
-        //             docker.withRegistry('', 'DockerHubCred') {
-        //             sh 'docker tag calculator iiitb/calculator:latest'
-        //             sh 'docker push iiitb/calculator'
-        //             }
-        //          }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'DockerHubCred') {
+                        sh 'docker tag scicalc r3dacted42/scicalc:latest'
+                        sh 'docker push r3dacted42/scicalc'
+                    }
+                }
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    ansiblePlaybook(
+                        playbook: 'deploy.yml',
+                        inventory: 'inventory.ini'
+                    )
+                }
+            }
+        }
     }
 }
