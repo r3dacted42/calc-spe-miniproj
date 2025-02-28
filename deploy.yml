@@ -19,6 +19,9 @@
         name: docker
         state: started
     
+    - name: Remove Existing Container if it Exists
+      shell: docker stop scicalc || true && docker rm scicalc || true
+    
     - name: Run Container
       shell: docker run -it -p5000:5000 -d --name scicalc r3dacted42/scicalc
     
