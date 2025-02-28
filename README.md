@@ -1,2 +1,2 @@
-# calc-spe-miniproj
-calculator with devops; mini project for spe course
+# scientific calculator 
+## spe mini project

@@ -25,6 +25,6 @@
     - name: Run Container
       shell: docker run -it -p5000:5000 -d --name scicalc r3dacted42/scicalc
     
-    - name: Display Completing Message
+    - name: Print Completion Message
       debug:
-        msg: Docker Container running at port 5000, go to localhost:5000 to access it
+        msg: Application running at "http://localhost:5000"
