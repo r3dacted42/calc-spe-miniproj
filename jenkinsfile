@@ -23,7 +23,7 @@ pipeline {
 
         stage('Compilation') {
             steps {
-                sh "cd scicalc && ./mvnw clean install -DskipTests"
+                sh "cd scicalc && ./mvnw clean package -DskipTests"
             }
         }
 
