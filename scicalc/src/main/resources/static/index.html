@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.11.2" />
+
+    <style>
+        .title {
+            min-width: 64px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>SPE Mini Project</header>
+
+    <h1>Scientific Calculator</h1>
+
+    <table>
+        <tr>
+            <td class="title">a + b</td>
+            <td>
+                <input placeholder="a" id="add-inp-a">
+            </td>
+            <td>
+                <input placeholder="b" id="add-inp-b">
+            </td>
+            <td>
+                <input type="button" id="add" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="add-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>a - b</td>
+            <td>
+                <input placeholder="a" id="sub-inp-a">
+            </td>
+            <td>
+                <input placeholder="b" id="sub-inp-b">
+            </td>
+            <td>
+                <input type="button" id="sub" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="sub-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>a * b</td>
+            <td>
+                <input placeholder="a" id="mul-inp-a">
+            </td>
+            <td>
+                <input placeholder="b" id="mul-inp-b">
+            </td>
+            <td>
+                <input type="button" id="mul" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="mul-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>a / b</td>
+            <td>
+                <input placeholder="a" id="div-inp-a">
+            </td>
+            <td>
+                <input placeholder="b" id="div-inp-b">
+            </td>
+            <td>
+                <input type="button" id="div" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="div-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>&radic;a</td>
+            <td colspan="2">
+                <input placeholder="a" id="sqrt-inp-a">
+            </td>
+            <td>
+                <input type="button" id="sqrt" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="sqrt-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>a!</td>
+            <td colspan="2">
+                <input placeholder="a" id="fact-inp-a">
+            </td>
+            <td>
+                <input type="button" id="fact" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="fact-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>ln(a)</td>
+            <td colspan="2">
+                <input placeholder="a" id="ln-inp-a">
+            </td>
+            <td>
+                <input type="button" id="ln" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="ln-res">
+            </td>
+        </tr>
+
+        <tr>
+            <td>a<sup>b</sup></td>
+            <td>
+                <input placeholder="a" id="pow-inp-a">
+            </td>
+            <td>
+                <input placeholder="b" id="pow-inp-b">
+            </td>
+            <td>
+                <input type="button" id="pow" value="&rarr;">
+            </td>
+            <td>
+                <input placeholder="result" disabled id="pow-res">
+            </td>
+        </tr>
+    </table>
+
+    <footer>Priyansh Agrahari MT2024120</footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        const endpoint = '/api';
+        const operations = ['add', 'sub', 'mul', 'div', 'sqrt', 'fact', 'ln', 'pow'];
+        for (const op of operations) {
+            const button = $(`#${op}`);
+            const resinp = $(`#${op}-res`);
+            button.click(async () => {
+                button.prop('disabled', true);
+                resinp.val('loading');
+                var url = endpoint + '/' + op;
+                const params = $(`[id^="${op}-inp"]`).map((_, e) => e.value);
+                url = url + `?a=${params[0]}` + (params.length > 1 ? `&b=${params[1]}` : '');
+                console.log(url);
+                const res = await fetch(url);
+                if (res.status === 200) {
+                    const value = await res.text();
+                    resinp.val(value);
+                } else {
+                    resinp.val(`err ${res.status}`);
+                }
+                button.prop('disabled', false);
+            });
+        }
+    </script>
+</body>
+
+</html>
