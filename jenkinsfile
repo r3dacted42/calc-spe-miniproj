@@ -1,0 +1,43 @@
+pipeline {
+
+    agent any
+    
+    triggers {
+        githubPush()
+    }
+
+    environment {
+        DOCKER_IMAGE_NAME = 'scicalc'
+        GITHUB_REPO_URL = 'https://github.com/r3dacted42/calc-spe-miniproj.git'
+    }
+
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                script {
+                    git branch: 'master', url: "${GITHUB_REPO_URL}"
+                }
+            }
+        }
+
+        stage('Compilation') {
+            steps {
+                sh "cd scicalc"
+                sh "./mvnw clean install -DskipTests"
+            }
+        }
+
+        stage('Testing') {
+            steps {
+                sh "./mvnw test"
+            }
+        }
+
+        stage("Deployment") {
+            steps {
+                sh "nohup ./mvnw spring-boot:run &"
+            }
+        }
+    }
+}
