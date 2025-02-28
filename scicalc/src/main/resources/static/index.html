@@ -162,7 +162,7 @@
                 console.log(url);
                 const res = await fetch(url);
                 if (res.status === 200) {
-                    const value = await res.text();
+                    const value = (await res.json()).value;
                     resinp.val(value);
                 } else {
                     resinp.val(`err ${res.status}`);
