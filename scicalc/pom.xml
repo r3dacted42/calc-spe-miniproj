@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.r3dacted42</groupId>
 	<artifactId>scicalc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>scicalc</name>
 	<description>Scientific Calc DevOps SPE MiniProject</description>
 	<url/>
