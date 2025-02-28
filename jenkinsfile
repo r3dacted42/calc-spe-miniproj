@@ -23,20 +23,19 @@ pipeline {
 
         stage('Compilation') {
             steps {
-                sh "cd scicalc"
-                sh "./mvnw clean install -DskipTests"
+                sh "cd scicalc && ./mvnw clean install -DskipTests"
             }
         }
 
         stage('Testing') {
             steps {
-                sh "./mvnw test"
+                sh "cd scicalc && ./mvnw test"
             }
         }
 
         stage("Deployment") {
             steps {
-                sh "nohup ./mvnw spring-boot:run &"
+                sh "cd scicalc && nohup ./mvnw spring-boot:run &"
             }
         }
     }
