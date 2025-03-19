@@ -2,4 +2,4 @@
 
 ## spe mini project
 
-[deployment](https://scicalc-fp2lwpcwtq-el.a.run.app/)
+[deployment](https://scicalc-fp2lwpcwtq-el.a.run.app/)  
